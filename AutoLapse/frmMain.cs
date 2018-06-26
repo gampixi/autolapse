@@ -14,7 +14,7 @@ using Microsoft.Win32;
 
 /*
 AutoLapse - Automatic screen timelapse recording
-Copyright(C) 2018 Gampixi
+Copyright(C) 2018 Gampixi (Rūdolfs Agris Stilve)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -417,14 +417,13 @@ namespace AutoLapse
             if (FormWindowState.Minimized == this.WindowState)
             {
                 this.Hide();
-            }
+            } 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-                "AutoLapse by Gampixi - https://github.com/gampixi - http://dankons.com" +
-                "\nFFmpeg is a trademark of Fabrice Bellard, originator of the FFmpeg project." +
+                "AutoLapse by Gampixi(Rūdolfs Agris Stilve) - https://github.com/gampixi - http://dankons.com" +
                 "\nThis software uses the FFmpeg project (ffmpeg.exe) under the GPLv2 (libx264)" +
                 "\nFFmpeg is a trademark of Fabrice Bellard, originator of the FFmpeg project."
                 );
