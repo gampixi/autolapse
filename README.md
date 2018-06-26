@@ -1,4 +1,4 @@
-#AutoLapse
+# AutoLapse
 
 Simple set-up-and-forget utility for recording timelapses of computer screens.
 
