@@ -155,6 +155,7 @@
             this.threadsSelect.TabIndex = 15;
             this.toolTip.SetToolTip(this.threadsSelect, resources.GetString("threadsSelect.ToolTip"));
             this.threadsSelect.Value = 2;
+            this.threadsSelect.Scroll += new System.EventHandler(this.threadsSelect_Scroll);
             // 
             // label9
             // 
@@ -442,7 +443,7 @@
             // 
             // processSelectButton
             // 
-            this.processSelectButton.Location = new System.Drawing.Point(290, 83);
+            this.processSelectButton.Location = new System.Drawing.Point(290, 84);
             this.processSelectButton.Name = "processSelectButton";
             this.processSelectButton.Size = new System.Drawing.Size(75, 23);
             this.processSelectButton.TabIndex = 9;

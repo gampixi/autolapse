@@ -20,5 +20,14 @@
     <Setting Name="processes" Type="System.String" Scope="User">
       <Value Profile="(Default)">Unity,devenv,blender</Value>
     </Setting>
+    <Setting Name="preset" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="threads" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="region" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

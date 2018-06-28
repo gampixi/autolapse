@@ -58,7 +58,9 @@ namespace AutoLapse
             {
                 autorunCheckbox.Checked = true;
             }
-
+            x264presetBox.SelectedIndex = Properties.Settings.Default.preset;
+            threadsSelect.Value = Properties.Settings.Default.threads;
+            monitorSelectBox.SelectedIndex = Properties.Settings.Default.region;
         }
 
         void SaveSettings()
@@ -76,6 +78,10 @@ namespace AutoLapse
                 rk.SetValue("AutoLapse", Application.ExecutablePath);
             else
                 rk.DeleteValue("AutoLapse", false);
+
+            Properties.Settings.Default.preset = x264presetBox.SelectedIndex;
+            Properties.Settings.Default.threads = threadsSelect.Value;
+            Properties.Settings.Default.region = monitorSelectBox.SelectedIndex;
 
             Properties.Settings.Default.Save();
         }
@@ -385,9 +391,22 @@ namespace AutoLapse
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            //Fetch screens
+            monitorSelectBox.Items.Clear();
+            monitorSelectBox.Items.Add("All screens");
+            int screenIndex = 1;
+            foreach(Screen s in Screen.AllScreens)
+            {
+                monitorSelectBox.Items.Add("Screen " + screenIndex + " - " + s.DeviceName + " (" + s.Bounds.Width + "x" + s.Bounds.Height + ")");
+                screenIndex++;
+            }
+
+            
+
             LoadSettings();
             speedSelect_Scroll(sender, e);
             fpsSelect_Scroll(sender, e);
+            threadsSelect_Scroll(sender, e);
             if(autorunCheckbox.Checked)
             {
                 BeginInvoke(new MethodInvoker(delegate
@@ -425,6 +444,11 @@ namespace AutoLapse
         private void tray_BalloonTipClicked(object sender, EventArgs e)
         {
             this.Show();
+        }
+
+        private void threadsSelect_Scroll(object sender, EventArgs e)
+        {
+            threadsLabel.Text = threadsSelect.Value.ToString();
         }
     }
 }
