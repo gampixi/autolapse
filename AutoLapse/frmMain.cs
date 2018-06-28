@@ -38,6 +38,7 @@ namespace AutoLapse
         int capturesThisSession = 0;
         bool isRecording = false;
         bool isConverting = false;
+        string[] currentWhitelist;
 
         public frmMain()
         {
@@ -221,6 +222,16 @@ namespace AutoLapse
         {
             captureTimer.Interval = (int)Math.Ceiling((1f / captureRate) * 60f) * 1000;
             captureTimer.Start();
+
+            if(!string.IsNullOrWhiteSpace(whitelistBox.Text))
+            {
+                currentWhitelist = whitelistBox.Text.Split(',');
+            }
+            else
+            {
+                currentWhitelist = null;
+            }
+
             DisableControls();
 
             SaveSettings();
@@ -315,6 +326,30 @@ namespace AutoLapse
         void CaptureScreen()
         {
             //TODO: Return if not in whitelist
+            if(currentWhitelist != null)
+            {
+                bool canContinue = false;
+                string currentWindow = WindowsAPI.GetActiveWindowTitle();
+                if(currentWindow != null)
+                {
+                    foreach(string w in currentWhitelist)
+                    {
+                        if(currentWindow.Contains(w))
+                        {
+                            canContinue = true;
+                            break;
+                        }
+                    }
+                    if(!canContinue)
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
 
             string fileName = capturesThisSession.ToString().PadLeft(8, '0') + ".png";
             string filePath = Path.Combine(fullpath, fileName);
