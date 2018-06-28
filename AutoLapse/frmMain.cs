@@ -499,11 +499,8 @@ namespace AutoLapse
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(
-                "AutoLapse by Gampixi(Rūdolfs Agris Stilve) - https://github.com/gampixi - http://dankons.com" +
-                "\nThis software uses the FFmpeg project (ffmpeg.exe) under the GPLv2 (libx264)" +
-                "\nFFmpeg is a trademark of Fabrice Bellard, originator of the FFmpeg project."
-                );
+            frmCredits creds = new frmCredits();
+            creds.ShowDialog();
         }
 
         private void tray_BalloonTipClicked(object sender, EventArgs e)
