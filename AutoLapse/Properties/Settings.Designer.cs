@@ -94,5 +94,41 @@ namespace AutoLapse.Properties {
                 this["processes"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int preset {
+            get {
+                return ((int)(this["preset"]));
+            }
+            set {
+                this["preset"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int threads {
+            get {
+                return ((int)(this["threads"]));
+            }
+            set {
+                this["threads"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int region {
+            get {
+                return ((int)(this["region"]));
+            }
+            set {
+                this["region"] = value;
+            }
+        }
     }
 }

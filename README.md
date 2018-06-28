@@ -7,7 +7,6 @@ With AutoLapse you can automatically start recording a timelapse of your work (p
 ![Screenshot](AutoLapse-Screenshot.png)
 
 Things that might cause issues and are not tested:  
- * Multiple monitors
  * 4K screen resolution (1440p works on my machine)
  * Exclusive fullscreen games
  * How long footage can you really record with it?

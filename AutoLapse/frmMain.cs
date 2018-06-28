@@ -38,6 +38,7 @@ namespace AutoLapse
         int capturesThisSession = 0;
         bool isRecording = false;
         bool isConverting = false;
+        string[] currentWhitelist;
 
         public frmMain()
         {
@@ -58,7 +59,9 @@ namespace AutoLapse
             {
                 autorunCheckbox.Checked = true;
             }
-
+            x264presetBox.SelectedIndex = Properties.Settings.Default.preset;
+            threadsSelect.Value = Properties.Settings.Default.threads;
+            monitorSelectBox.SelectedIndex = Properties.Settings.Default.region;
         }
 
         void SaveSettings()
@@ -76,6 +79,10 @@ namespace AutoLapse
                 rk.SetValue("AutoLapse", Application.ExecutablePath);
             else
                 rk.DeleteValue("AutoLapse", false);
+
+            Properties.Settings.Default.preset = x264presetBox.SelectedIndex;
+            Properties.Settings.Default.threads = threadsSelect.Value;
+            Properties.Settings.Default.region = monitorSelectBox.SelectedIndex;
 
             Properties.Settings.Default.Save();
         }
@@ -190,6 +197,11 @@ namespace AutoLapse
             speedSelect.Enabled = true;
             autorunCheckbox.Enabled = true;
             autoReadyButton.Enabled = true;
+            x264presetBox.Enabled = true;
+            threadsSelect.Enabled = true;
+            monitorSelectBox.Enabled = true;
+            whitelistBox.Enabled = true;
+            processSelectButton.Enabled = true;
         }
 
         void DisableControls()
@@ -201,16 +213,27 @@ namespace AutoLapse
             speedSelect.Enabled = false;
             autorunCheckbox.Enabled = false;
             autoReadyButton.Enabled = false;
+            x264presetBox.Enabled = false;
+            threadsSelect.Enabled = false;
+            monitorSelectBox.Enabled = false;
+            whitelistBox.Enabled = false;
+            processSelectButton.Enabled = false;
         }
 
         void StartReady()
         {
             captureTimer.Interval = (int)Math.Ceiling((1f / captureRate) * 60f) * 1000;
             captureTimer.Start();
-            tray.BalloonTipIcon = ToolTipIcon.Info;
-            tray.BalloonTipTitle = "AutoLapse is ready";
-            tray.BalloonTipText = "AutoLapse will start recording once it detects a valid program running! Press Unready or Quit to stop.";
-            tray.ShowBalloonTip(2000);
+
+            if(!string.IsNullOrWhiteSpace(whitelistBox.Text))
+            {
+                currentWhitelist = whitelistBox.Text.Split(',');
+            }
+            else
+            {
+                currentWhitelist = null;
+            }
+
             DisableControls();
 
             SaveSettings();
@@ -225,10 +248,6 @@ namespace AutoLapse
             {
                 StopRecording();
             }
-            tray.BalloonTipIcon = ToolTipIcon.Info;
-            tray.BalloonTipTitle = "AutoLapse is no longer ready";
-            tray.BalloonTipText = "AutoLapse will not record automatically. To enable AutoLapse, press Ready.";
-            tray.ShowBalloonTip(2000);
             EnableControls();
         }
 
@@ -280,7 +299,11 @@ namespace AutoLapse
             //strCommand is path and file name of command to run
             pProcess.StartInfo.FileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ffmpeg.exe");
             //strCommandParameters are parameters to pass to program
-            pProcess.StartInfo.Arguments = "-start_number 1 -framerate " + fpsSelect.Value.ToString() + " -i %08d.png  -vcodec libx264 -profile:v high -crf 20 -pix_fmt yuv420p " + folderName + ".mp4";
+            pProcess.StartInfo.Arguments =
+                "-start_number 1 -framerate " + fpsSelect.Value.ToString() + " -i %08d.png  -vcodec libx264" +
+                " -profile:v high -crf 20 -preset " + x264presetBox.Items[x264presetBox.SelectedIndex] +
+                " -threads " + threadsSelect.Value.ToString() +
+                " -pix_fmt yuv420p " + folderName + ".mp4";
             //Optional
             pProcess.StartInfo.WorkingDirectory = fullpath;
             pProcess.StartInfo.UseShellExecute = false;
@@ -304,7 +327,32 @@ namespace AutoLapse
 
         void CaptureScreen()
         {
-            capturesThisSession++;
+            //TODO: Return if not in whitelist
+            if(currentWhitelist != null)
+            {
+                bool canContinue = false;
+                string currentWindow = WindowsAPI.GetActiveWindowTitle();
+                if(currentWindow != null)
+                {
+                    foreach(string w in currentWhitelist)
+                    {
+                        if(currentWindow.Contains(w))
+                        {
+                            canContinue = true;
+                            break;
+                        }
+                    }
+                    if(!canContinue)
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
+
             string fileName = capturesThisSession.ToString().PadLeft(8, '0') + ".png";
             string filePath = Path.Combine(fullpath, fileName);
             /*ScreenCapture sc = new ScreenCapture();
@@ -317,18 +365,36 @@ namespace AutoLapse
             int screenWidth = SystemInformation.VirtualScreen.Width;
             int screenHeight = SystemInformation.VirtualScreen.Height;
 
-            // Create a bitmap of the appropriate size to receive the screenshot.
-            using (Bitmap bmp = new Bitmap(screenWidth, screenHeight))
+            if(monitorSelectBox.SelectedIndex != 0)
             {
-                // Draw the screenshot into our bitmap.
-                using (Graphics g = Graphics.FromImage(bmp))
-                {
-                    g.CopyFromScreen(screenLeft, screenTop, 0, 0, bmp.Size);
-                }
-
-                // Do something with the Bitmap here, like save it to a file:
-                bmp.Save(filePath, ImageFormat.Png);
+                Screen selectedScreen = Screen.AllScreens[monitorSelectBox.SelectedIndex - 1];
+                screenLeft = selectedScreen.Bounds.Left;
+                screenTop = selectedScreen.Bounds.Top;
+                screenWidth = selectedScreen.Bounds.Width;
+                screenHeight = selectedScreen.Bounds.Height;
             }
+
+            // Create a bitmap of the appropriate size to receive the screenshot.
+            try
+            {
+                using (Bitmap bmp = new Bitmap(screenWidth, screenHeight))
+                {
+                    // Draw the screenshot into our bitmap.
+                    using (Graphics g = Graphics.FromImage(bmp))
+                    {
+                        g.CopyFromScreen(screenLeft, screenTop, 0, 0, bmp.Size);
+                    }
+
+                    // Do something with the Bitmap here, like save it to a file:
+                    bmp.Save(filePath, ImageFormat.Png);
+                }
+            }
+            catch
+            {
+                capturesThisSession--;
+            }
+
+            capturesThisSession++;
         }
 
         private void captureTimer_Tick(object sender, EventArgs e)
@@ -392,9 +458,22 @@ namespace AutoLapse
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            //Fetch screens
+            monitorSelectBox.Items.Clear();
+            monitorSelectBox.Items.Add("All screens");
+            int screenIndex = 1;
+            foreach(Screen s in Screen.AllScreens)
+            {
+                monitorSelectBox.Items.Add("Screen " + screenIndex + " - " + s.DeviceName + " (" + s.Bounds.Width + "x" + s.Bounds.Height + ")");
+                screenIndex++;
+            }
+
+            
+
             LoadSettings();
             speedSelect_Scroll(sender, e);
             fpsSelect_Scroll(sender, e);
+            threadsSelect_Scroll(sender, e);
             if(autorunCheckbox.Checked)
             {
                 BeginInvoke(new MethodInvoker(delegate
@@ -422,11 +501,25 @@ namespace AutoLapse
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(
-                "AutoLapse by Gampixi(Rūdolfs Agris Stilve) - https://github.com/gampixi - http://dankons.com" +
-                "\nThis software uses the FFmpeg project (ffmpeg.exe) under the GPLv2 (libx264)" +
-                "\nFFmpeg is a trademark of Fabrice Bellard, originator of the FFmpeg project."
-                );
+            frmCredits creds = new frmCredits();
+            creds.ShowDialog();
+        }
+
+        private void tray_BalloonTipClicked(object sender, EventArgs e)
+        {
+            this.Show();
+        }
+
+        private void threadsSelect_Scroll(object sender, EventArgs e)
+        {
+            threadsLabel.Text = threadsSelect.Value.ToString();
+        }
+
+        private void processSelectButton_Click(object sender, EventArgs e)
+        {
+            frmProcesses newProcessForm = new frmProcesses();
+            newProcessForm.mainForm = this;
+            newProcessForm.Show();
         }
     }
 }
