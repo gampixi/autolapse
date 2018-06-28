@@ -286,7 +286,11 @@ namespace AutoLapse
             //strCommand is path and file name of command to run
             pProcess.StartInfo.FileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ffmpeg.exe");
             //strCommandParameters are parameters to pass to program
-            pProcess.StartInfo.Arguments = "-start_number 1 -framerate " + fpsSelect.Value.ToString() + " -i %08d.png  -vcodec libx264 -profile:v high -crf 20 -pix_fmt yuv420p " + folderName + ".mp4";
+            pProcess.StartInfo.Arguments =
+                "-start_number 1 -framerate " + fpsSelect.Value.ToString() + " -i %08d.png  -vcodec libx264" +
+                " -profile:v high -crf 20 -preset " + x264presetBox.Items[x264presetBox.SelectedIndex] +
+                " -threads " + threadsSelect.Value.ToString() +
+                " -pix_fmt yuv420p " + folderName + ".mp4";
             //Optional
             pProcess.StartInfo.WorkingDirectory = fullpath;
             pProcess.StartInfo.UseShellExecute = false;
