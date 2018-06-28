@@ -213,6 +213,7 @@
             this.tray.Icon = ((System.Drawing.Icon)(resources.GetObject("tray.Icon")));
             this.tray.Text = "AutoLapse";
             this.tray.Visible = true;
+            this.tray.BalloonTipClicked += new System.EventHandler(this.tray_BalloonTipClicked);
             this.tray.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tray_MouseDoubleClick);
             // 
             // trayContext

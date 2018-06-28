@@ -207,10 +207,6 @@ namespace AutoLapse
         {
             captureTimer.Interval = (int)Math.Ceiling((1f / captureRate) * 60f) * 1000;
             captureTimer.Start();
-            tray.BalloonTipIcon = ToolTipIcon.Info;
-            tray.BalloonTipTitle = "AutoLapse is ready";
-            tray.BalloonTipText = "AutoLapse will start recording once it detects a valid program running! Press Unready or Quit to stop.";
-            tray.ShowBalloonTip(2000);
             DisableControls();
 
             SaveSettings();
@@ -225,10 +221,6 @@ namespace AutoLapse
             {
                 StopRecording();
             }
-            tray.BalloonTipIcon = ToolTipIcon.Info;
-            tray.BalloonTipTitle = "AutoLapse is no longer ready";
-            tray.BalloonTipText = "AutoLapse will not record automatically. To enable AutoLapse, press Ready.";
-            tray.ShowBalloonTip(2000);
             EnableControls();
         }
 
@@ -427,6 +419,11 @@ namespace AutoLapse
                 "\nThis software uses the FFmpeg project (ffmpeg.exe) under the GPLv2 (libx264)" +
                 "\nFFmpeg is a trademark of Fabrice Bellard, originator of the FFmpeg project."
                 );
+        }
+
+        private void tray_BalloonTipClicked(object sender, EventArgs e)
+        {
+            this.Show();
         }
     }
 }
