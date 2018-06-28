@@ -201,6 +201,7 @@ namespace AutoLapse
             threadsSelect.Enabled = true;
             monitorSelectBox.Enabled = true;
             whitelistBox.Enabled = true;
+            processSelectButton.Enabled = true;
         }
 
         void DisableControls()
@@ -216,6 +217,7 @@ namespace AutoLapse
             threadsSelect.Enabled = false;
             monitorSelectBox.Enabled = false;
             whitelistBox.Enabled = false;
+            processSelectButton.Enabled = false;
         }
 
         void StartReady()
