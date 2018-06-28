@@ -196,6 +196,10 @@ namespace AutoLapse
             speedSelect.Enabled = true;
             autorunCheckbox.Enabled = true;
             autoReadyButton.Enabled = true;
+            x264presetBox.Enabled = true;
+            threadsSelect.Enabled = true;
+            monitorSelectBox.Enabled = true;
+            whitelistBox.Enabled = true;
         }
 
         void DisableControls()
@@ -207,6 +211,10 @@ namespace AutoLapse
             speedSelect.Enabled = false;
             autorunCheckbox.Enabled = false;
             autoReadyButton.Enabled = false;
+            x264presetBox.Enabled = false;
+            threadsSelect.Enabled = false;
+            monitorSelectBox.Enabled = false;
+            whitelistBox.Enabled = false;
         }
 
         void StartReady()
@@ -302,6 +310,8 @@ namespace AutoLapse
 
         void CaptureScreen()
         {
+            //TODO: Return if not in whitelist
+
             string fileName = capturesThisSession.ToString().PadLeft(8, '0') + ".png";
             string filePath = Path.Combine(fullpath, fileName);
             /*ScreenCapture sc = new ScreenCapture();
@@ -324,16 +334,23 @@ namespace AutoLapse
             }
 
             // Create a bitmap of the appropriate size to receive the screenshot.
-            using (Bitmap bmp = new Bitmap(screenWidth, screenHeight))
+            try
             {
-                // Draw the screenshot into our bitmap.
-                using (Graphics g = Graphics.FromImage(bmp))
+                using (Bitmap bmp = new Bitmap(screenWidth, screenHeight))
                 {
-                    g.CopyFromScreen(screenLeft, screenTop, 0, 0, bmp.Size);
-                }
+                    // Draw the screenshot into our bitmap.
+                    using (Graphics g = Graphics.FromImage(bmp))
+                    {
+                        g.CopyFromScreen(screenLeft, screenTop, 0, 0, bmp.Size);
+                    }
 
-                // Do something with the Bitmap here, like save it to a file:
-                bmp.Save(filePath, ImageFormat.Png);
+                    // Do something with the Bitmap here, like save it to a file:
+                    bmp.Save(filePath, ImageFormat.Png);
+                }
+            }
+            catch
+            {
+                capturesThisSession--;
             }
 
             capturesThisSession++;
