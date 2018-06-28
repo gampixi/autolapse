@@ -449,6 +449,7 @@
             this.processSelectButton.TabIndex = 9;
             this.processSelectButton.Text = "Select";
             this.processSelectButton.UseVisualStyleBackColor = true;
+            this.processSelectButton.Click += new System.EventHandler(this.processSelectButton_Click);
             // 
             // frmMain
             // 
@@ -490,7 +491,6 @@
         private System.Windows.Forms.TextBox saveTextBox;
         private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox processBox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TrackBar fpsSelect;
         private System.Windows.Forms.Label fpsLabel;
@@ -522,6 +522,7 @@
         private System.Windows.Forms.Label threadsLabel;
         private System.Windows.Forms.Button processSelectButton;
         private System.Windows.Forms.ToolTip toolTip;
+        public System.Windows.Forms.TextBox processBox;
     }
 }
 

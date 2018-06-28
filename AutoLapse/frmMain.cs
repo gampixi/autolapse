@@ -314,6 +314,15 @@ namespace AutoLapse
             int screenWidth = SystemInformation.VirtualScreen.Width;
             int screenHeight = SystemInformation.VirtualScreen.Height;
 
+            if(monitorSelectBox.SelectedIndex != 0)
+            {
+                Screen selectedScreen = Screen.AllScreens[monitorSelectBox.SelectedIndex - 1];
+                screenLeft = selectedScreen.Bounds.Left;
+                screenTop = selectedScreen.Bounds.Top;
+                screenWidth = selectedScreen.Bounds.Width;
+                screenHeight = selectedScreen.Bounds.Height;
+            }
+
             // Create a bitmap of the appropriate size to receive the screenshot.
             using (Bitmap bmp = new Bitmap(screenWidth, screenHeight))
             {
@@ -449,6 +458,13 @@ namespace AutoLapse
         private void threadsSelect_Scroll(object sender, EventArgs e)
         {
             threadsLabel.Text = threadsSelect.Value.ToString();
+        }
+
+        private void processSelectButton_Click(object sender, EventArgs e)
+        {
+            frmProcesses newProcessForm = new frmProcesses();
+            newProcessForm.mainForm = this;
+            newProcessForm.Show();
         }
     }
 }
