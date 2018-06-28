@@ -120,6 +120,27 @@
   <metadata name="folderBrowserDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>491, 17</value>
+  </metadata>
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>491, 17</value>
+  </metadata>
+  <data name="processBox.ToolTip" xml:space="preserve">
+    <value>Timelapse recording will start only when these processes are running. You should enter the name of the executable, without .exe extension.
+You can separate multiple processes with a comma (,) You can find the executable name using Task Manager, or use the included process selection.
+Once all of chosen processes are closed, recording is stopped and a timelapse is saved.</value>
+  </data>
+  <data name="threadsSelect.ToolTip" xml:space="preserve">
+    <value>Maximum amount of threads to use for video encoding. Thread count of your CPU can be found using Task Manager (logical processors).
+I recommend to not use all your threads, otherwise the computer may become very unresponsive while the timelapse is saving.</value>
+  </data>
+  <data name="speedSelect.ToolTip" xml:space="preserve">
+    <value>Select the speedup of recorded timelapses. Lower speeds require more frequent captures in order to remain smooth.
+
+60x = 1 second in timelapse = 1 minute of real-time
+30x = 1 second in timelapse = 30 seconds of real-time</value>
+  </data>
   <metadata name="tray.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>180, 17</value>
   </metadata>
@@ -417,9 +438,16 @@
   <metadata name="captureTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>367, 17</value>
   </metadata>
-  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>491, 17</value>
-  </metadata>
+  <data name="whitelistBox.ToolTip" xml:space="preserve">
+    <value>New frames will be recorded only when chosen windows are in focus.
+This feature is useful if you do not wish to accidentally record any personal info, for example, e-mails.
+
+In this box you should not write the full name of the window, any part of the title is enough, for example:
+Visual Studio has title "[Solution name] - Microsoft Visual Studio", you may only write Microsoft Visual, or Visual Studio and it will be detected.
+Please note that this will also trigger on browser tabs (it should, for most browsers).
+
+You can separate multiple titles with a comma (,)</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAQEAAAAEAIAAoQgAAFgAAACgAAABAAAAAgAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

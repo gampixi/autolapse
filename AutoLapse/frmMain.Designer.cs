@@ -86,15 +86,17 @@
             // 
             // saveTextBox
             // 
-            this.saveTextBox.Enabled = false;
-            this.saveTextBox.Location = new System.Drawing.Point(6, 41);
+            this.saveTextBox.Location = new System.Drawing.Point(6, 38);
             this.saveTextBox.Name = "saveTextBox";
+            this.saveTextBox.ReadOnly = true;
             this.saveTextBox.Size = new System.Drawing.Size(278, 20);
             this.saveTextBox.TabIndex = 1;
+            this.toolTip.SetToolTip(this.saveTextBox, "The folder in which new timelapses will be recorded (subfolders with the current " +
+        "date will be created on recording)");
             // 
             // browseButton
             // 
-            this.browseButton.Location = new System.Drawing.Point(290, 38);
+            this.browseButton.Location = new System.Drawing.Point(290, 36);
             this.browseButton.Name = "browseButton";
             this.browseButton.Size = new System.Drawing.Size(75, 23);
             this.browseButton.TabIndex = 2;
@@ -113,11 +115,12 @@
             // 
             // processBox
             // 
-            this.processBox.Location = new System.Drawing.Point(6, 89);
+            this.processBox.Location = new System.Drawing.Point(6, 86);
             this.processBox.Name = "processBox";
             this.processBox.Size = new System.Drawing.Size(278, 20);
             this.processBox.TabIndex = 4;
             this.processBox.Text = "Unity,devenv,blender";
+            this.toolTip.SetToolTip(this.processBox, resources.GetString("processBox.ToolTip"));
             // 
             // groupBox1
             // 
@@ -150,6 +153,7 @@
             this.threadsSelect.Name = "threadsSelect";
             this.threadsSelect.Size = new System.Drawing.Size(190, 45);
             this.threadsSelect.TabIndex = 15;
+            this.toolTip.SetToolTip(this.threadsSelect, resources.GetString("threadsSelect.ToolTip"));
             this.threadsSelect.Value = 2;
             // 
             // label9
@@ -179,6 +183,8 @@
             this.x264presetBox.Name = "x264presetBox";
             this.x264presetBox.Size = new System.Drawing.Size(121, 21);
             this.x264presetBox.TabIndex = 13;
+            this.toolTip.SetToolTip(this.x264presetBox, "Preset to use for final video encoding. Fast presets are recommended, because the" +
+        "y take less time to encode.");
             // 
             // label8
             // 
@@ -233,6 +239,8 @@
             this.fpsSelect.Name = "fpsSelect";
             this.fpsSelect.Size = new System.Drawing.Size(363, 45);
             this.fpsSelect.TabIndex = 3;
+            this.toolTip.SetToolTip(this.fpsSelect, "Select the frame rate of final video. Higher frame rates result in a smoother tim" +
+        "elapse, but may fail to record properly.\r\n\r\n30 FPS is recommended.");
             this.fpsSelect.Value = 30;
             this.fpsSelect.Scroll += new System.EventHandler(this.fpsSelect_Scroll);
             // 
@@ -246,6 +254,8 @@
             this.deleteCheckbox.Size = new System.Drawing.Size(181, 17);
             this.deleteCheckbox.TabIndex = 10;
             this.deleteCheckbox.Text = "Delete frames after making video";
+            this.toolTip.SetToolTip(this.deleteCheckbox, "Uncheck if you wish to keep the PNG frames captured by AutoLapse for further proc" +
+        "essing.");
             this.deleteCheckbox.UseVisualStyleBackColor = true;
             // 
             // fpsLabel
@@ -266,6 +276,7 @@
             this.speedSelect.Name = "speedSelect";
             this.speedSelect.Size = new System.Drawing.Size(363, 45);
             this.speedSelect.TabIndex = 1;
+            this.toolTip.SetToolTip(this.speedSelect, resources.GetString("speedSelect.ToolTip"));
             this.speedSelect.Value = 30;
             this.speedSelect.Scroll += new System.EventHandler(this.speedSelect_Scroll);
             // 
@@ -384,11 +395,13 @@
             this.monitorSelectBox.Name = "monitorSelectBox";
             this.monitorSelectBox.Size = new System.Drawing.Size(359, 21);
             this.monitorSelectBox.TabIndex = 8;
+            this.toolTip.SetToolTip(this.monitorSelectBox, "Select, whether you want to record all screens or a specific screen. For multi-sc" +
+        "reen setups, recording a single screen is recommended.");
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 156);
+            this.label6.Location = new System.Drawing.Point(6, 160);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(79, 13);
             this.label6.TabIndex = 7;
@@ -400,6 +413,7 @@
             this.whitelistBox.Name = "whitelistBox";
             this.whitelistBox.Size = new System.Drawing.Size(359, 20);
             this.whitelistBox.TabIndex = 6;
+            this.toolTip.SetToolTip(this.whitelistBox, resources.GetString("whitelistBox.ToolTip"));
             // 
             // label3
             // 
@@ -419,9 +433,16 @@
             this.threadsLabel.TabIndex = 16;
             this.threadsLabel.Text = "2";
             // 
+            // toolTip
+            // 
+            this.toolTip.AutoPopDelay = 20000;
+            this.toolTip.InitialDelay = 50;
+            this.toolTip.IsBalloon = true;
+            this.toolTip.ReshowDelay = 50;
+            // 
             // processSelectButton
             // 
-            this.processSelectButton.Location = new System.Drawing.Point(290, 87);
+            this.processSelectButton.Location = new System.Drawing.Point(290, 83);
             this.processSelectButton.Name = "processSelectButton";
             this.processSelectButton.Size = new System.Drawing.Size(75, 23);
             this.processSelectButton.TabIndex = 9;

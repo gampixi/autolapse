@@ -296,7 +296,6 @@ namespace AutoLapse
 
         void CaptureScreen()
         {
-            capturesThisSession++;
             string fileName = capturesThisSession.ToString().PadLeft(8, '0') + ".png";
             string filePath = Path.Combine(fullpath, fileName);
             /*ScreenCapture sc = new ScreenCapture();
@@ -321,6 +320,8 @@ namespace AutoLapse
                 // Do something with the Bitmap here, like save it to a file:
                 bmp.Save(filePath, ImageFormat.Png);
             }
+
+            capturesThisSession++;
         }
 
         private void captureTimer_Tick(object sender, EventArgs e)
