@@ -130,5 +130,17 @@ namespace AutoLapse.Properties {
                 this["region"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string whitelist {
+            get {
+                return ((string)(this["whitelist"]));
+            }
+            set {
+                this["whitelist"] = value;
+            }
+        }
     }
 }

@@ -62,6 +62,7 @@ namespace AutoLapse
             x264presetBox.SelectedIndex = Properties.Settings.Default.preset;
             threadsSelect.Value = Properties.Settings.Default.threads;
             monitorSelectBox.SelectedIndex = Properties.Settings.Default.region;
+            whitelistBox.Text = Properties.Settings.Default.whitelist;
         }
 
         void SaveSettings()
@@ -83,7 +84,7 @@ namespace AutoLapse
             Properties.Settings.Default.preset = x264presetBox.SelectedIndex;
             Properties.Settings.Default.threads = threadsSelect.Value;
             Properties.Settings.Default.region = monitorSelectBox.SelectedIndex;
-
+            Properties.Settings.Default.whitelist = whitelistBox.Text;
             Properties.Settings.Default.Save();
         }
 
