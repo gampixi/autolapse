@@ -37,6 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.processBox = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.threadsLabel = new System.Windows.Forms.Label();
             this.threadsSelect = new System.Windows.Forms.TrackBar();
             this.label9 = new System.Windows.Forms.Label();
             this.x264presetBox = new System.Windows.Forms.ComboBox();
@@ -60,13 +61,12 @@
             this.captureTimer = new System.Windows.Forms.Timer(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.processSelectButton = new System.Windows.Forms.Button();
             this.monitorSelectBox = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.whitelistBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.threadsLabel = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.processSelectButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.threadsSelect)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fpsSelect)).BeginInit();
@@ -144,6 +144,15 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Output settings";
+            // 
+            // threadsLabel
+            // 
+            this.threadsLabel.AutoSize = true;
+            this.threadsLabel.Location = new System.Drawing.Point(185, 136);
+            this.threadsLabel.Name = "threadsLabel";
+            this.threadsLabel.Size = new System.Drawing.Size(13, 13);
+            this.threadsLabel.TabIndex = 16;
+            this.threadsLabel.Text = "2";
             // 
             // threadsSelect
             // 
@@ -386,6 +395,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Capture settings";
             // 
+            // processSelectButton
+            // 
+            this.processSelectButton.Location = new System.Drawing.Point(290, 84);
+            this.processSelectButton.Name = "processSelectButton";
+            this.processSelectButton.Size = new System.Drawing.Size(75, 23);
+            this.processSelectButton.TabIndex = 9;
+            this.processSelectButton.Text = "Select";
+            this.processSelectButton.UseVisualStyleBackColor = true;
+            this.processSelectButton.Click += new System.EventHandler(this.processSelectButton_Click);
+            // 
             // monitorSelectBox
             // 
             this.monitorSelectBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -425,31 +444,12 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Capture only when these windows are in focus:";
             // 
-            // threadsLabel
-            // 
-            this.threadsLabel.AutoSize = true;
-            this.threadsLabel.Location = new System.Drawing.Point(185, 136);
-            this.threadsLabel.Name = "threadsLabel";
-            this.threadsLabel.Size = new System.Drawing.Size(13, 13);
-            this.threadsLabel.TabIndex = 16;
-            this.threadsLabel.Text = "2";
-            // 
             // toolTip
             // 
             this.toolTip.AutoPopDelay = 20000;
             this.toolTip.InitialDelay = 50;
             this.toolTip.IsBalloon = true;
             this.toolTip.ReshowDelay = 50;
-            // 
-            // processSelectButton
-            // 
-            this.processSelectButton.Location = new System.Drawing.Point(290, 84);
-            this.processSelectButton.Name = "processSelectButton";
-            this.processSelectButton.Size = new System.Drawing.Size(75, 23);
-            this.processSelectButton.TabIndex = 9;
-            this.processSelectButton.Text = "Select";
-            this.processSelectButton.UseVisualStyleBackColor = true;
-            this.processSelectButton.Click += new System.EventHandler(this.processSelectButton_Click);
             // 
             // frmMain
             // 
@@ -467,7 +467,7 @@
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AutoLapse 1.1 by Gampixi";
+            this.Text = "AutoLapse 1.1.1 by Gampixi";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.Resize += new System.EventHandler(this.frmMain_Resize);
