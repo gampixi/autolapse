@@ -1,3 +1,7 @@
+1.1.1
+
+-Fixed bug where whitelist wouldn't save
+
 1.1
 
 -Fixed unhandled exception when can't capture the screen (UAC)
