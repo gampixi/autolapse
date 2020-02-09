@@ -260,6 +260,16 @@ namespace AutoLapse
             {
                 int thisNum = 1;
                 string yearMonthDay = DateTime.Now.ToShortDateString();
+                // Localized date format might contain characters that are invalid for paths
+                // such as '/','\'
+                var invalidChars = Path.GetInvalidFileNameChars().ToList();
+                invalidChars.Union(Path.GetInvalidPathChars().ToList());
+
+                invalidChars.ForEach(x =>
+                {
+                    yearMonthDay = yearMonthDay.Replace(x, '-');
+                });
+
                 folderName = yearMonthDay + '-' + thisNum;
                 while (Directory.Exists(Path.Combine(saveTextBox.Text, folderName))) {
                     
@@ -287,7 +297,7 @@ namespace AutoLapse
             ConvertCurrentRecording();
             tray.BalloonTipIcon = ToolTipIcon.Info;
             tray.BalloonTipTitle = "AutoLapse has completed a recording";
-            tray.BalloonTipText = "A new video has been created in the " + folderName + " subfolder!";
+            tray.BalloonTipText = $"A new video has been created: {folderName}";
             tray.ShowBalloonTip(2000);
         }
 
