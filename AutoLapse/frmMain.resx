@@ -123,9 +123,6 @@
   <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>491, 17</value>
   </metadata>
-  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>491, 17</value>
-  </metadata>
   <data name="processBox.ToolTip" xml:space="preserve">
     <value>Timelapse recording will start only when these processes are running. You should enter the name of the executable, without .exe extension.
 You can separate multiple processes with a comma (,) You can find the executable name using Task Manager, or use the included process selection.

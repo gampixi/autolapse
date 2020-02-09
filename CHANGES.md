@@ -1,3 +1,13 @@
+#1.1.2
+
+## Added
+
+ * Option to save videos in save location root (don't keep subfolders)
+
+## Changed
+
+ * File naming now follows system date format
+
 1.1.1
 
 -Fixed bug where whitelist wouldn't save
