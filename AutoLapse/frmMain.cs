@@ -53,6 +53,7 @@ namespace AutoLapse
             fpsSelect.Value = Properties.Settings.Default.fps;
             autoReadyButton.Checked = Properties.Settings.Default.autoReady;
             deleteCheckbox.Checked = Properties.Settings.Default.deletePNG;
+            deleteDirCheckbox.Checked = Properties.Settings.Default.deleteDir;
             RegistryKey rk = Registry.CurrentUser.OpenSubKey
             ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             if(!string.IsNullOrEmpty((string)rk.GetValue("AutoLapse", "")))
@@ -73,6 +74,7 @@ namespace AutoLapse
             Properties.Settings.Default.fps = fpsSelect.Value;
             Properties.Settings.Default.autoReady = autoReadyButton.Checked;
             Properties.Settings.Default.deletePNG = deleteCheckbox.Checked;
+            Properties.Settings.Default.deleteDir = deleteDirCheckbox.Checked;
 
             RegistryKey rk = Registry.CurrentUser.OpenSubKey
             ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
@@ -257,14 +259,12 @@ namespace AutoLapse
             if (!isRecording)
             {
                 int thisNum = 1;
-                DateTime dt = DateTime.Now;
-                folderName = String.Format("{0:yyyy-dd-MM}-", dt);
-                folderName += thisNum.ToString();
-                while (Directory.Exists(Path.Combine(saveTextBox.Text, folderName)))
-                {
-                    folderName = String.Format("{0:yyyy-dd-MM}-", dt);
+                string yearMonthDay = DateTime.Now.ToShortDateString();
+                folderName = yearMonthDay + '-' + thisNum;
+                while (Directory.Exists(Path.Combine(saveTextBox.Text, folderName))) {
+                    
                     thisNum++;
-                    folderName += thisNum.ToString();
+                    folderName = yearMonthDay + '-' + thisNum;
                 }
                 fullpath = Path.Combine(saveTextBox.Text, folderName);
                 Directory.CreateDirectory(fullpath);
@@ -314,12 +314,18 @@ namespace AutoLapse
             //Wait for process to finish
             pProcess.WaitForExit();
 
-            if(deleteCheckbox.Checked)
+            if(!deleteDirCheckbox.Checked && deleteCheckbox.Checked)
             {
                 foreach (string file in Directory.GetFiles(fullpath, "*.png").Where(item => item.EndsWith(".png")))
                 {
                     File.Delete(file);
                 }
+            }
+            
+            if (deleteDirCheckbox.Checked)
+            {
+                File.Move(Path.Combine(fullpath, folderName + ".mp4"), fullpath + ".mp4");
+                Directory.Delete(fullpath, true);
             }
 
             readyButton.Enabled = true;
@@ -521,6 +527,11 @@ namespace AutoLapse
             frmProcesses newProcessForm = new frmProcesses();
             newProcessForm.mainForm = this;
             newProcessForm.Show();
+        }
+
+        private void DeleteDirCheckBox_CheckChanged(object sender, EventArgs e)
+        {
+            deleteCheckbox.Enabled = !deleteDirCheckbox.Checked;
         }
     }
 }
