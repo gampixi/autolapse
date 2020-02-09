@@ -257,14 +257,12 @@ namespace AutoLapse
             if (!isRecording)
             {
                 int thisNum = 1;
-                DateTime dt = DateTime.Now;
-                folderName = String.Format("{0:yyyy-dd-MM}-", dt);
-                folderName += thisNum.ToString();
-                while (Directory.Exists(Path.Combine(saveTextBox.Text, folderName)))
-                {
-                    folderName = String.Format("{0:yyyy-dd-MM}-", dt);
+                string yearMonthDay = DateTime.Now.ToShortDateString();
+                folderName = yearMonthDay + '-' + thisNum;
+                while (Directory.Exists(Path.Combine(saveTextBox.Text, folderName))) {
+                    
                     thisNum++;
-                    folderName += thisNum.ToString();
+                    folderName = yearMonthDay + '-' + thisNum;
                 }
                 fullpath = Path.Combine(saveTextBox.Text, folderName);
                 Directory.CreateDirectory(fullpath);
